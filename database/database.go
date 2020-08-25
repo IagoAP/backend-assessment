@@ -1,0 +1,50 @@
+package database
+
+import (
+	"database/sql"
+	"fmt"
+	_ "github.com/lib/pq" // sem esse import nao estabelece conexao
+	"github.com/sirupsen/logrus"
+)
+
+type PostgresInfo struct {
+	postgresHost     string
+	postgresPort     string
+	postgresUser     string
+	postgresPassword string
+	postgresDBName   string
+}
+
+func defineDB() string {
+	postgreConfig := PostgresInfo{
+		postgresPort:     "5432",       // FAZER ENV
+		postgresHost:     "172.17.0.2", // FAZER ENV
+		postgresUser:     "postgres",   // FAZER ENV
+		postgresPassword: "admin",      // FAZER ENV
+		postgresDBName:   "pst10",      // FAZER ENV
+	}
+
+	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+		postgreConfig.postgresHost,
+		postgreConfig.postgresPort,
+		postgreConfig.postgresUser,
+		postgreConfig.postgresPassword,
+		postgreConfig.postgresDBName)
+	return psqlInfo
+}
+
+func StartConnection() *sql.DB {
+	var err error
+	var Conn *sql.DB
+	Conn, err = sql.Open("postgres", defineDB())
+
+	if err != nil {
+		logrus.Fatal(err.Error())
+	}
+	err = Conn.Ping()
+	if err != nil {
+		logrus.Fatal(err.Error())
+	}
+
+	return Conn
+}

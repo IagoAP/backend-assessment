@@ -1,0 +1,22 @@
+version: '2'
+services:
+  zookeeper:
+    image: zookeeper:3.4.10
+    ports:
+      - "2181:2181"
+    network_mode: host
+    volumes:
+      - /Data/volumes/zookeeper/3.4.10:/data
+      - /Data/logs/zookeeper/3.4.10:/datalog
+  kafka:
+    image: wurstmeister/kafka:2.11-1.1.1
+    ports:
+      - "9092"
+    network_mode: host
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 172.17.0.1
+      KAFKA_ZOOKEEPER_CONNECT: 172.17.0.1:2181
+    volumes:
+      - /Data/volumes/kafka/2.11-1.1.1:/kafka
+      - /Data/logs/kafka/2.11-1.1.1:/opt/kafka/logs
+    restart: always
