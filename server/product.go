@@ -29,7 +29,7 @@ func (s *Server) IssueProductActivation(c *gin.Context) {
 		return
 	}
 	productRequest.ExternalAppID = id
-	err := sendMessagesProductCreate(s.Kafka, productRequest)
+	err := s.Kafka.SendMessage(productRequest, "ProductCreate")
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
 	} else {
@@ -44,16 +44,4 @@ func (s *Server) ActivationRequests(c *gin.Context) {
 		return
 	}
 
-}
-
-func sendMessagesProductCreate(kf Kafka, msg ProductRequest) error {
-	err := kf.SendMessage(msg, "ProductCreate")
-	if err != nil {
-		return err
-	}
-	err = kf.SendMessage(msg, "ProductCreateReadDB")
-	if err != nil {
-		return err
-	}
-	return nil
 }

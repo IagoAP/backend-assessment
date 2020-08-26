@@ -88,16 +88,18 @@ func (k *Kafka) SendMessage(message interface{}, topic string) error {
 	return nil
 }
 
-func messageReceived(message *sarama.ConsumerMessage) error {
+func messageReceived(message *sarama.ConsumerMessage, kafka *Kafka) error {
 	switch message.Topic {
 	case "ProductCreate":
 		database.CreateProduct(database.ConvertProductMessage(message.Value))
+		kafka.SendMessage(message, "ProductCreateReadDB")
 	case "ProductCreateReadDB":
-		return nil
+		//database2.CreateRow(database.ConvertProductMessage(message.Value))
 	case "ProductActivation":
 		database.ActivateProduct(database.ConvertActivationMessage(message.Value))
+		kafka.SendMessage(message, "ProductActivationReadDB")
 	case "ProductActivationReadDB":
-		return nil
+		//database2.CompleteRow(database.ConvertActivationMessage(message.Value))
 	}
 	return nil
 }
@@ -105,7 +107,7 @@ func messageReceived(message *sarama.ConsumerMessage) error {
 func (k *Kafka) CreateConsumers(readingTopics []string) {
 	for {
 		topics := readingTopics
-		handler := &ConsumerHandler{}
+		handler := &ConsumerHandler{k}
 		err := k.Consumer.Consume(context.Background(), topics, handler)
 		if err != nil {
 			logrus.Fatal(err)
@@ -120,6 +122,7 @@ func (k *Kafka) CreateConsumers(readingTopics []string) {
 // PLEASE NOTE that handlers are likely be called from several goroutines concurrently,
 // ensure that all state is safely protected against race conditions.
 type ConsumerHandler struct {
+	kafka *Kafka
 	// Setup is run at the beginning of a new session, before ConsumeClaim.
 
 	// Cleanup is run at the end of a session, once all ConsumeClaim goroutines have exited
@@ -139,7 +142,7 @@ func (ch *ConsumerHandler) Cleanup(_ sarama.ConsumerGroupSession) error {
 func (ch ConsumerHandler) ConsumeClaim(sess sarama.ConsumerGroupSession, claim sarama.ConsumerGroupClaim) error {
 	for msg := range claim.Messages() {
 		logrus.Info("Processing Message topic:" + fmt.Sprint(msg.Topic) + "partition:" + fmt.Sprint(msg.Partition) + " offset:" + fmt.Sprint(msg.Offset))
-		err := messageReceived(msg)
+		err := messageReceived(msg, ch.kafka)
 		if err != nil {
 			return err
 		}
