@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"github.com/Shopify/sarama"
 	"github.com/sirupsen/logrus"
-	"psT10/database"
 	"time"
 )
 
@@ -20,18 +19,18 @@ type Kafka struct {
 }
 
 func (k *Kafka) GetDefaultConfig() (func(), error) {
-	kfversion, err := sarama.ParseKafkaVersion(k.Version) // kafkaVersion is the version of kafka server like 0.11.0.2
+	kfVersion, err := sarama.ParseKafkaVersion(k.Version) // kafkaVersion is the version of kafka server like 0.11.0.2
 	if err != nil {
 		return nil, err
 	}
-	kafkaconfig := sarama.NewConfig()
-	kafkaconfig.Version = kfversion
-	kafkaconfig.Producer.RequiredAcks = sarama.WaitForAll
-	kafkaconfig.Producer.Retry.Max = 5
-	kafkaconfig.Producer.Return.Successes = true
-	kafkaconfig.Consumer.Offsets.Initial = sarama.OffsetOldest
+	kafkaConfig := sarama.NewConfig()
+	kafkaConfig.Version = kfVersion
+	kafkaConfig.Producer.RequiredAcks = sarama.WaitForAll
+	kafkaConfig.Producer.Retry.Max = 5
+	kafkaConfig.Producer.Return.Successes = true
+	kafkaConfig.Consumer.Offsets.Initial = sarama.OffsetOldest
 
-	k.Client, err = sarama.NewClient(k.Brokers, kafkaconfig)
+	k.Client, err = sarama.NewClient(k.Brokers, kafkaConfig)
 
 	if err != nil {
 		return nil, err
@@ -91,13 +90,11 @@ func (k *Kafka) SendMessage(message interface{}, topic string) error {
 func messageReceived(message *sarama.ConsumerMessage, kafka *Kafka) error {
 	switch message.Topic {
 	case "ProductCreate":
-		database.CreateProduct(database.ConvertProductMessage(message.Value))
-		kafka.SendMessage(message, "ProductCreateReadDB")
+		HandleProductCreate(message, kafka)
 	case "ProductCreateReadDB":
-		//database2.CreateRow(database.ConvertProductMessage(message.Value))
+
 	case "ProductActivation":
-		database.ActivateProduct(database.ConvertActivationMessage(message.Value))
-		kafka.SendMessage(message, "ProductActivationReadDB")
+		HandleProductActivation(message, kafka)
 	case "ProductActivationReadDB":
 		//database2.CompleteRow(database.ConvertActivationMessage(message.Value))
 	}

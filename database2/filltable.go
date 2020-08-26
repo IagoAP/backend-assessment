@@ -9,3 +9,5 @@ type ReadModel struct {
 	CustomerEmail bool   `json:"Activated"`
 	Activated     bool   `json:"Activated"`
 }
+
+

@@ -1,12 +1,16 @@
 package server
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"net/http"
 	"psT10/tokenlist"
+	"strings"
 )
 
 type ProductRequest struct {
+	ID            string
 	ExternalAppID uint64
 	Description   string `json:"Description"`
 	CustomerMid   int    `json:"CustomerMid"`
@@ -28,12 +32,15 @@ func (s *Server) IssueProductActivation(c *gin.Context) {
 		c.JSON(http.StatusUnprocessableEntity, "Invalid json provided")
 		return
 	}
+	uuidWithHyphen := uuid.New()
+	fmt.Println(uuidWithHyphen)
+	productRequest.ID = strings.Replace(uuidWithHyphen.String(), "-", "", -1)
 	productRequest.ExternalAppID = id
 	err := s.Kafka.SendMessage(productRequest, "ProductCreate")
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
 	} else {
-		c.JSON(http.StatusOK, gin.H{"message": "ok"})
+		c.JSON(http.StatusOK, gin.H{"message": "ok", "ActivationID": productRequest.ID})
 	}
 }
 

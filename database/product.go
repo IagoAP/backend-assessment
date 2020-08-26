@@ -6,6 +6,7 @@ import (
 )
 
 type ProductRequest struct {
+	ID   		  string `json:"ID"`
 	Description   string `json:"Description"`
 	CustomerMid   int    `json:"CustomerMid"`
 	CustomerEmail string `json:"CustomerEmail"`
@@ -19,10 +20,9 @@ func CreateProduct(msg ProductRequest) error {
 	defer conn.Close()
 
 	sqlStatement := `
-		INSERT INTO product(description, customer_mid, customer_email, externalApp_id) 
-		VALUES ($1,$2,$3,$4)
-		RETURNING id`
-	err := conn.QueryRow(sqlStatement, msg.Description, msg.CustomerMid, msg.CustomerEmail, msg.ExternalAppID).Err()
+		INSERT INTO product(id, description, customer_mid, customer_email, externalApp_id) 
+		VALUES ($1,$2,$3,$4, $5)`
+	err := conn.QueryRow(sqlStatement, msg.ID, msg.Description, msg.CustomerMid, msg.CustomerEmail, msg.ExternalAppID).Err()
 	if err != nil {
 		return err
 	}
