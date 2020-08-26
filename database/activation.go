@@ -25,6 +25,21 @@ func ActivateProduct(msg ActivationRequest) error {
 	return nil
 }
 
+func GetEmail(msg ActivationRequest) (string, error) {
+	conn := StartConnection()
+	defer conn.Close()
+
+	var email string
+
+	sqlStatement := `SELECT customer_email
+		WHERE id = $1;`
+	err := conn.QueryRow(sqlStatement, msg.ActivationID).Scan(&email)
+	if err != nil {
+		return "", err
+	}
+	return email, nil
+}
+
 func ConvertActivationMessage(msg []byte) ActivationRequest {
 	result  :=  ActivationRequest{}
 	err := json.Unmarshal(msg, &result)
