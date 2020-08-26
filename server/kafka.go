@@ -92,11 +92,11 @@ func messageReceived(message *sarama.ConsumerMessage, kafka *Kafka) error {
 	case "ProductCreate":
 		HandleProductCreate(message, kafka)
 	case "ProductCreateReadDB":
-
+		HandleProductCreateReadDB(message, kafka)
 	case "ProductActivation":
 		HandleProductActivation(message, kafka)
 	case "ProductActivationReadDB":
-		//database2.CompleteRow(database.ConvertActivationMessage(message.Value))
+		HandleProductActivationReadDB(message, kafka)
 	}
 	return nil
 }
