@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"net/http"
+	"psT10/database2"
 	"psT10/tokenlist"
 	"strings"
 )
@@ -50,5 +51,10 @@ func (s *Server) ActivationRequests(c *gin.Context) {
 		c.JSON(http.StatusUnauthorized, "Token expired")
 		return
 	}
-
+	results, err := database2.GetAllRows()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, results)
 }
