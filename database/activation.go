@@ -7,7 +7,7 @@ import (
 
 type ActivationRequest struct {
 	SuperUserID  uint64 `json:"SuperUserID"`
-	ActivationID uint64 `json:"ActivationID"`
+	ActivationID string `json:"ID"`
 	Activated    bool   `json:"Activated"`
 }
 

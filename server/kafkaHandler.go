@@ -7,8 +7,9 @@ import (
 )
 
 func HandleProductCreate (message *sarama.ConsumerMessage, kafka *Kafka) {
-	database.CreateProduct(database.ConvertProductMessage(message.Value))
-	kafka.SendMessage(message, "ProductCreateReadDB")
+	productRequest := database.ConvertProductMessage(message.Value)
+	database.CreateProduct(productRequest)
+	kafka.SendMessage(productRequest, "ProductCreateReadDB")
 }
 
 func HandleProductCreateReadDB (message *sarama.ConsumerMessage, kafka *Kafka) {
@@ -16,8 +17,9 @@ func HandleProductCreateReadDB (message *sarama.ConsumerMessage, kafka *Kafka) {
 }
 
 func HandleProductActivation (message *sarama.ConsumerMessage, kafka *Kafka) {
-	database.ActivateProduct(database.ConvertActivationMessage(message.Value))
-	kafka.SendMessage(message, "ProductActivationReadDB")
+	activationRequest := database.ConvertActivationMessage(message.Value)
+	database.ActivateProduct(activationRequest)
+	kafka.SendMessage(activationRequest, "ProductActivationReadDB")
 }
 
 func HandleProductActivationReadDB (message *sarama.ConsumerMessage, kafka *Kafka) {
