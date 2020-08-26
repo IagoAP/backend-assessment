@@ -90,8 +90,14 @@ func (k *Kafka) SendMessage(message interface{}, topic string) error {
 
 func messageReceived(message *sarama.ConsumerMessage) error {
 	switch message.Topic {
-		case "ProductCreate":
-			database.CreateProduct(database.ConvertProductMessage(message.Value))
+	case "ProductCreate":
+		database.CreateProduct(database.ConvertProductMessage(message.Value))
+	case "ProductCreateReadDB":
+		return nil
+	case "ProductActivation":
+		database.ActivateProduct(database.ConvertActivationMessage(message.Value))
+	case "ProductActivationReadDB":
+		return nil
 	}
 	return nil
 }

@@ -22,9 +22,9 @@ func CreateProduct(msg ProductRequest) error {
 		INSERT INTO product(description, customer_mid, customer_email, externalApp_id) 
 		VALUES ($1,$2,$3,$4)
 		RETURNING id`
-	err := conn.QueryRow(sqlStatement, msg.Description, msg.CustomerMid, msg.CustomerEmail, msg.ExternalAppID)
+	err := conn.QueryRow(sqlStatement, msg.Description, msg.CustomerMid, msg.CustomerEmail, msg.ExternalAppID).Err()
 	if err != nil {
-		return err.Err()
+		return err
 	}
 	return nil
 }
@@ -38,8 +38,3 @@ func ConvertProductMessage(msg []byte) ProductRequest {
 	return result
 }
 
-//
-//func ListProducts() []ProductRequest {
-//	//productRequest := []ProductRequest
-//
-//}

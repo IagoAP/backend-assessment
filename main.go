@@ -18,6 +18,6 @@ func main() { // ENV
 	}
 	defer kafkaClose()
 	s := server.Server{Kafka: kafka}
-	go s.Kafka.CreateConsumers([]string{"ProductCreate"}) // Colocar no env
+	go s.Kafka.CreateConsumers([]string{"ProductCreate", "ProductCreateReadDB", "ProductActivation", "ProductActivationReadDB"}) // Colocar no env
 	s.Run()
 }

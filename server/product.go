@@ -29,7 +29,7 @@ func (s *Server) IssueProductActivation(c *gin.Context) {
 		return
 	}
 	productRequest.ExternalAppID = id
-	err := s.Kafka.SendMessage(productRequest, "ProductCreate")
+	err := sendMessagesProductCreate(s.Kafka, productRequest)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
 	} else {
@@ -37,10 +37,23 @@ func (s *Server) IssueProductActivation(c *gin.Context) {
 	}
 }
 
-func ActivationRequests(c *gin.Context) {
+func (s *Server) ActivationRequests(c *gin.Context) {
 	validToken, _, _ := tokenlist.CheckToken(c.Request.Header["Token"][0])
 	if !validToken {
 		c.JSON(http.StatusUnauthorized, "Token expired")
 		return
 	}
+
+}
+
+func sendMessagesProductCreate(kf Kafka, msg ProductRequest) error {
+	err := kf.SendMessage(msg, "ProductCreate")
+	if err != nil {
+		return err
+	}
+	err = kf.SendMessage(msg, "ProductCreateReadDB")
+	if err != nil {
+		return err
+	}
+	return nil
 }
