@@ -4,6 +4,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"net/smtp"
 	"psT10/database"
+	"psT10/environment"
 )
 
 func SendEmailProductCreated(message []byte) error {
@@ -35,11 +36,11 @@ func SendEmailProductEvaluation(message []byte) error {
 }
 
 func sendEmail(emailTo []string, message []byte) {
-	from := "iagopst10@gmail.com" // ENV
-	password := "pst10iago" // ENV
+	from := environment.GetEnvVariables("EMAIL_FROM")
+	password := environment.GetEnvVariables("EMAIL_PASSWORD")
 
-	smtpHost := "smtp.gmail.com"
-	smtpPort := "587"
+	smtpHost := environment.GetEnvVariables("EMAIL_HOST")
+	smtpPort := environment.GetEnvVariables("EMAIL_PORT")
 
 	auth := smtp.PlainAuth("", from, password, smtpHost)
 

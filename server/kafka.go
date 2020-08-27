@@ -19,7 +19,7 @@ type Kafka struct {
 }
 
 func (k *Kafka) GetDefaultConfig() (func(), error) {
-	kfVersion, err := sarama.ParseKafkaVersion(k.Version) // kafkaVersion is the version of kafka server like 0.11.0.2
+	kfVersion, err := sarama.ParseKafkaVersion(k.Version)
 	if err != nil {
 		return nil, err
 	}
@@ -125,7 +125,7 @@ func (k *Kafka) CreateConsumers(readingTopics []string) {
 		handler := &ConsumerHandler{k}
 		err := k.Consumer.Consume(context.Background(), topics, handler)
 		if err != nil {
-			logrus.Fatal(err) // pode deixar
+			logrus.Fatal(err)
 		}
 	}
 }

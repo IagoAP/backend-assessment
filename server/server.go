@@ -11,7 +11,7 @@ type Server struct {
 
 func (s *Server) Run() {
 	r := gin.Default()
-	r.Use(gin.Recovery()) // recupera de algum panic
+	r.Use(gin.Recovery()) // recover from errors
 	r.POST("/RequestToken", s.Login)
 	r.POST("/IssueProductActivation", s.IssueProductActivation)
 	r.POST("/ApproveActivation", s.ApproveActivation)

@@ -2,14 +2,15 @@ package main
 
 import (
 	"github.com/sirupsen/logrus"
+	"psT10/environment"
 	"psT10/server"
 )
 
-func main() { // ENV
+func main() {
 	kafka := server.Kafka{
-		Brokers: []string{"localhost:9092"},
-		GroupID: "T10",
-		Version: "0.11.0.2",
+		Brokers: []string{environment.GetEnvVariables("BROKER_HOST")},
+		GroupID: environment.GetEnvVariables("KAFKA_GROUP"),
+		Version: environment.GetEnvVariables("KAFKA_VERSION"),
 	}
 	kafkaClose, err := kafka.GetDefaultConfig()
 	if err != nil {
@@ -18,6 +19,7 @@ func main() { // ENV
 	}
 	defer kafkaClose()
 	s := server.Server{Kafka: kafka}
-	go s.Kafka.CreateConsumers([]string{"ProductCreate", "ProductCreateReadDB", "ProductActivation", "ProductActivationReadDB"}) // Colocar no env
+	go s.Kafka.CreateConsumers([]string{environment.GetEnvVariables("CUSTOMER1"), environment.GetEnvVariables("CUSTOMER2"),
+		environment.GetEnvVariables("CUSTOMER3"), environment.GetEnvVariables("CUSTOMER4")})
 	s.Run()
 }

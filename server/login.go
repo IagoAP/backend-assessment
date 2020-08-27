@@ -5,8 +5,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	"net/http"
-	"os"
 	"psT10/database"
+	"psT10/environment"
 	"psT10/tokenlist"
 	"time"
 )
@@ -48,10 +48,9 @@ func createJwt(id uint64) (jwt.MapClaims, string) {
 }
 
 func CreateToken(id uint64) (string, error) {
-	os.Setenv("ACCESS_SECRET", "jdnfksdmfksd") // FAZER ENV
 	createdJwt, expirationTime := createJwt(id)
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, createdJwt)
-	token, err := at.SignedString([]byte(os.Getenv("ACCESS_SECRET")))
+	token, err := at.SignedString([]byte(environment.GetEnvVariables("ACCESS_SECRET")))
 	tokenlist.AddToken(id, token, expirationTime)
 	if err != nil {
 		return "", err

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	_ "github.com/lib/pq" // sem esse import nao estabelece conexao
 	"github.com/sirupsen/logrus"
+	"psT10/environment"
 )
 
 type PostgresInfo struct {
@@ -17,11 +18,11 @@ type PostgresInfo struct {
 
 func defineDB() string {
 	postgreConfig := PostgresInfo{
-		postgresPort:     "5432",       // FAZER ENV
-		postgresHost:     "172.17.0.2", // FAZER ENV
-		postgresUser:     "postgres",   // FAZER ENV
-		postgresPassword: "admin",      // FAZER ENV
-		postgresDBName:   "pst10",      // FAZER ENV
+		postgresPort:     environment.GetEnvVariables("DB_PORT"),
+		postgresHost:     environment.GetEnvVariables("DB_HOST"),
+		postgresUser:     environment.GetEnvVariables("DB_USER"),
+		postgresPassword: environment.GetEnvVariables("DP_PASSWORD"),
+		postgresDBName:   environment.GetEnvVariables("DB_NAME"),
 	}
 
 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",

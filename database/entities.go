@@ -23,7 +23,6 @@ func ValidateLogin(username, password string) (bool, uint64, string, error) {
 		}
 	}()
 
-	// sqlStatement := `SELECT id, user_type, username, password FROM entities WHERE username=$1;`
 	sqlStatement := `SELECT id, user_type, username, password FROM entities WHERE username=$1;`
 	var entity entities
 	row := conn.QueryRow(sqlStatement, username)
