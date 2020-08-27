@@ -23,11 +23,8 @@ func (s *Server) Login(c *gin.Context) {
 		return
 	}
 	login, id, _, err := database.ValidateLogin(loginRequest.Username, loginRequest.Password)
-	if err != nil {
+	if err != nil || !login {
 		logrus.Info(err.Error())
-		c.JSON(http.StatusInternalServerError, "Sorry about that, try again please")
-	}
-	if !login {
 		c.JSON(http.StatusUnauthorized, "Please provide valid login details")
 		return
 	}

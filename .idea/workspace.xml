@@ -14,17 +14,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c4b7a1e1-6503-4696-8f08-92f789bea54d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/database.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/database.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/entities.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/entities.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database2/database2.go" beforeDir="false" afterPath="$PROJECT_DIR$/database2/database2.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/email/email.go" beforeDir="false" afterPath="$PROJECT_DIR$/email/email.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/kafka.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/kafka.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/login.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/login.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +43,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -86,9 +81,20 @@
       <directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
+    <configuration name="main_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="psT10" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="FILE" />
+      <package value="psT10" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/main_test.go" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Go Build.go build main.go" />
+        <item itemvalue="Go Test.main_test.go" />
         <item itemvalue="Go Build.go build database.go" />
       </list>
     </recent_temporary>
@@ -139,67 +145,72 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="709" y="354" width="559" height="396" key="#com.intellij.fileTypes.FileTypeChooser/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1598506584031" />
-    <state width="1018" height="506" key="DebuggerActiveHint" timestamp="1598417074085">
+    <state width="1018" height="506" key="DebuggerActiveHint" timestamp="1598519556694">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
+    <state width="1018" height="506" key="DebuggerActiveHint/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1598519556694" />
     <state width="1018" height="506" key="DebuggerActiveHint/67.27.1853.1053@67.27.1853.1053" timestamp="1598417074085" />
     <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1597975250620">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1597975250620" />
-    <state width="1807" height="325" key="GridCell.Tab.0.bottom" timestamp="1598508248857">
+    <state width="1807" height="275" key="GridCell.Tab.0.bottom" timestamp="1598519532706">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="325" key="GridCell.Tab.0.bottom/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1598508248857" />
+    <state width="1807" height="275" key="GridCell.Tab.0.bottom/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1598519532706" />
     <state width="1807" height="323" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1598440640183" />
-    <state width="1807" height="325" key="GridCell.Tab.0.center" timestamp="1598508248857">
+    <state width="1807" height="275" key="GridCell.Tab.0.center" timestamp="1598519532706">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="325" key="GridCell.Tab.0.center/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1598508248857" />
+    <state width="1807" height="275" key="GridCell.Tab.0.center/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1598519532706" />
     <state width="1807" height="323" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1598440640183" />
-    <state width="1807" height="325" key="GridCell.Tab.0.left" timestamp="1598508248857">
+    <state width="1807" height="275" key="GridCell.Tab.0.left" timestamp="1598519532706">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="325" key="GridCell.Tab.0.left/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1598508248857" />
+    <state width="1807" height="275" key="GridCell.Tab.0.left/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1598519532706" />
     <state width="1807" height="323" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1598440640182" />
-    <state width="1807" height="325" key="GridCell.Tab.0.right" timestamp="1598508248857">
+    <state width="1807" height="275" key="GridCell.Tab.0.right" timestamp="1598519532706">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="325" key="GridCell.Tab.0.right/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1598508248857" />
+    <state width="1807" height="275" key="GridCell.Tab.0.right/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1598519532706" />
     <state width="1807" height="323" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1598440640183" />
-    <state width="1807" height="325" key="GridCell.Tab.1.bottom" timestamp="1598508248858">
+    <state width="1807" height="275" key="GridCell.Tab.1.bottom" timestamp="1598519533664">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="325" key="GridCell.Tab.1.bottom/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1598508248858" />
+    <state width="1807" height="275" key="GridCell.Tab.1.bottom/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1598519533664" />
     <state width="1807" height="323" key="GridCell.Tab.1.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1598440640184" />
-    <state width="1807" height="325" key="GridCell.Tab.1.center" timestamp="1598508248858">
+    <state width="1807" height="275" key="GridCell.Tab.1.center" timestamp="1598519533664">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="325" key="GridCell.Tab.1.center/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1598508248858" />
+    <state width="1807" height="275" key="GridCell.Tab.1.center/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1598519533664" />
     <state width="1807" height="323" key="GridCell.Tab.1.center/67.27.1853.1053@67.27.1853.1053" timestamp="1598440640184" />
-    <state width="1807" height="325" key="GridCell.Tab.1.left" timestamp="1598508248858">
+    <state width="1807" height="275" key="GridCell.Tab.1.left" timestamp="1598519533664">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="325" key="GridCell.Tab.1.left/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1598508248858" />
+    <state width="1807" height="275" key="GridCell.Tab.1.left/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1598519533664" />
     <state width="1807" height="323" key="GridCell.Tab.1.left/67.27.1853.1053@67.27.1853.1053" timestamp="1598440640183" />
-    <state width="1807" height="325" key="GridCell.Tab.1.right" timestamp="1598508248858">
+    <state width="1807" height="275" key="GridCell.Tab.1.right" timestamp="1598519533664">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="325" key="GridCell.Tab.1.right/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1598508248858" />
+    <state width="1807" height="275" key="GridCell.Tab.1.right/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1598519533664" />
     <state width="1807" height="323" key="GridCell.Tab.1.right/67.27.1853.1053@67.27.1853.1053" timestamp="1598440640184" />
-    <state width="926" height="527" key="XDebugger.FullValuePopup" timestamp="1598467810003">
+    <state width="926" height="527" key="XDebugger.FullValuePopup" timestamp="1598519094278">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="926" height="527" key="XDebugger.FullValuePopup/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1598467810003" />
+    <state width="926" height="527" key="XDebugger.FullValuePopup/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1598519094278" />
     <state width="926" height="527" key="XDebugger.FullValuePopup/67.27.1853.1053@67.27.1853.1053" timestamp="1598417677007" />
     <state x="185" y="168" width="1408" height="705" key="dock-window-1" timestamp="1598504032137">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="185" y="168" width="1408" height="705" key="dock-window-1/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1598504032137" />
-    <state x="684" y="161" width="618" height="783" key="find.popup" timestamp="1598508657662">
+    <state x="67" y="27" width="1408" height="771" key="dock-window-2" timestamp="1598510769322">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="684" y="161" width="618" height="783" key="find.popup/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1598508657662" />
+    <state x="67" y="27" width="1408" height="771" key="dock-window-2/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1598510769322" />
+    <state x="684" y="161" width="618" height="783" key="find.popup" timestamp="1598519626924">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="684" y="161" width="618" height="783" key="find.popup/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1598519626924" />
     <state x="684" y="161" width="618" height="783" key="find.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1598417185020" />
     <state x="656" y="257" width="672" height="678" key="search.everywhere.popup" timestamp="1598508093121">
       <screen x="67" y="27" width="1853" height="1053" />
@@ -209,6 +220,43 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/main_test.go</url>
+          <line>206</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/server/activation.go</url>
+          <line>23</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/server/kafkaHandler.go</url>
+          <line>11</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/server/kafkaHandler.go</url>
+          <line>34</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/server/kafkaHandler.go</url>
+          <line>47</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/server/kafkaHandler.go</url>
+          <line>70</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/server/kafkaHandler.go</url>
+          <line>40</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="DlvErrorBreakpoint" />
       </default-breakpoints>
@@ -216,6 +264,9 @@
     <watches-manager>
       <configuration name="GoApplicationRunConfiguration">
         <watch expression="sqlStatement" />
+      </configuration>
+      <configuration name="GoTestRunConfiguration">
+        <watch expression="*(*&quot;errors.errorString&quot;)(824636894208)" />
       </configuration>
     </watches-manager>
   </component>
