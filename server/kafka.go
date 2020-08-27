@@ -97,6 +97,8 @@ func messageReceived(message *sarama.ConsumerMessage, kafka *Kafka) error {
 		HandleProductActivation(message, kafka)
 	case "ProductActivationReadDB":
 		HandleProductActivationReadDB(message, kafka)
+	default:
+		//log erro
 	}
 	return nil
 }
@@ -107,7 +109,7 @@ func (k *Kafka) CreateConsumers(readingTopics []string) {
 		handler := &ConsumerHandler{k}
 		err := k.Consumer.Consume(context.Background(), topics, handler)
 		if err != nil {
-			logrus.Fatal(err)
+			logrus.Fatal(err) // pode deixar
 		}
 	}
 }

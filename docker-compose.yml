@@ -20,3 +20,13 @@ services:
       - /Data/volumes/kafka/2.11-1.1.1:/kafka
       - /Data/logs/kafka/2.11-1.1.1:/opt/kafka/logs
     restart: always
+  postgres-compose:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./pgdata/:/var/lib/postgresql/data/

@@ -7,7 +7,6 @@ import (
 )
 
 func SendEmailProductCreated(message []byte) {
-
 	result := database.ConvertProductMessage(message)
 	var emailTo []string
 	emailTo = append(emailTo, result.CustomerEmail)

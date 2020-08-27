@@ -31,7 +31,8 @@ func GetEmail(msg ActivationRequest) (string, error) {
 
 	var email string
 
-	sqlStatement := `SELECT customer_email
+	sqlStatement := `SELECT customer_email 
+		FROM product
 		WHERE id = $1;`
 	err := conn.QueryRow(sqlStatement, msg.ActivationID).Scan(&email)
 	if err != nil {

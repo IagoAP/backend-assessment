@@ -33,7 +33,7 @@ func ConvertProductMessage(msg []byte) ProductRequest {
 	result  :=  ProductRequest{}
 	err := json.Unmarshal(msg, &result)
 	if err != nil {
-		logrus.Fatal(err.Error())
+		logrus.Error(err.Error())
 	}
 	return result
 }
