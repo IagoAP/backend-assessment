@@ -33,18 +33,18 @@ func defineDB() string {
 	return psqlInfo
 }
 
-func StartConnection() *sql.DB {
-	var err error
+func StartConnection() (*sql.DB, error) {
+	var err error = nil
 	var Conn *sql.DB
 	Conn, err = sql.Open("postgres", defineDB())
 
 	if err != nil {
-		logrus.Fatal(err.Error())
+		logrus.Infof(err.Error())
 	}
 	err = Conn.Ping()
 	if err != nil {
 		logrus.Fatal(err.Error())
 	}
 
-	return Conn
+	return Conn, err
 }

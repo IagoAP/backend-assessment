@@ -12,42 +12,64 @@ type ActivationRequest struct {
 }
 
 func ActivateProduct(msg ActivationRequest) error {
-	conn := StartConnection()
-	defer conn.Close()
+	var err error = nil
+	conn, err := StartConnection()
+	if err != nil {
+		logrus.Infof(err.Error())
+		return err
+	}
+	defer func() {
+		err = conn.Close()
+		if err != nil {
+			logrus.Infof(err.Error())
+		}
+	}()
 
 	sqlStatement := `UPDATE product
-		SET superuser_id = $2, activated = $3
-		WHERE id = $1;`
-	err := conn.QueryRow(sqlStatement, msg.ActivationID, msg.SuperUserID, msg.Activated).Err()
+						SET superuser_id = $2, activated = $3
+						WHERE id = $1;`
+	err = conn.QueryRow(sqlStatement, msg.ActivationID, msg.SuperUserID, msg.Activated).Err()
 	if err != nil {
+		logrus.Infof(err.Error())
 		return err
 	}
 	return nil
 }
 
 func GetEmail(msg ActivationRequest) (string, error) {
-	conn := StartConnection()
-	defer conn.Close()
+	var err error = nil
+	conn, err := StartConnection()
+	if err != nil {
+		logrus.Infof(err.Error())
+		return "", err
+	}
+	defer func() {
+		err = conn.Close()
+		if err != nil {
+			logrus.Infof(err.Error())
+		}
+	}()
 
 	var email string
 
 	sqlStatement := `SELECT customer_email 
 		FROM product
 		WHERE id = $1;`
-	err := conn.QueryRow(sqlStatement, msg.ActivationID).Scan(&email)
+	err = conn.QueryRow(sqlStatement, msg.ActivationID).Scan(&email)
 	if err != nil {
+		logrus.Infof(err.Error())
 		return "", err
 	}
-	return email, nil
+	return email, err
 }
 
-func ConvertActivationMessage(msg []byte) ActivationRequest {
+func ConvertActivationMessage(msg []byte) (ActivationRequest, error) {
 	result  :=  ActivationRequest{}
 	err := json.Unmarshal(msg, &result)
 	if err != nil {
-		logrus.Fatal(err.Error())
+		logrus.Infof(err.Error())
 	}
-	return result
+	return result, err
 }
 
 

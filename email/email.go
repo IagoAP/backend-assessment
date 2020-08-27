@@ -6,15 +6,24 @@ import (
 	"psT10/database"
 )
 
-func SendEmailProductCreated(message []byte) {
-	result := database.ConvertProductMessage(message)
+func SendEmailProductCreated(message []byte) error {
+	var err error = nil
+	result, err := database.ConvertProductMessage(message)
+	if err != nil {
+		return err
+	}
 	var emailTo []string
 	emailTo = append(emailTo, result.CustomerEmail)
 	sendEmail(emailTo, message)
+	return err
 }
 
-func SendEmailProductEvaluation(message []byte) {
-	result := database.ConvertActivationMessage(message)
+func SendEmailProductEvaluation(message []byte) error {
+	result, err := database.ConvertActivationMessage(message)
+	if err != nil {
+		logrus.Infof(err.Error())
+		return err
+	}
 	var emailTo []string
 	email, err := database.GetEmail(result)
 	if err != nil {
@@ -22,6 +31,7 @@ func SendEmailProductEvaluation(message []byte) {
 	}
 	emailTo = append(emailTo, email)
 	sendEmail(emailTo, message)
+	return err
 }
 
 func sendEmail(emailTo []string, message []byte) {

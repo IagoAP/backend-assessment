@@ -6,28 +6,51 @@ import (
 )
 
 func CreateToken(id uint64, token string, expirationTime string) error {
-	conn := StartConnection()
-	defer conn.Close()
+	var err error = nil
+	conn, err := StartConnection()
+	if err != nil {
+		logrus.Infof(err.Error())
+		return err
+	}
+
+	defer func() {
+		err = conn.Close()
+		if err != nil {
+			logrus.Infof(err.Error())
+		}
+	}()
 
 	sqlStatement := `
 		INSERT INTO tokens(id_entities, token, expiration_time) 
 		VALUES ($1,$2,$3)`
-	err := conn.QueryRow(sqlStatement, id, token, expirationTime)
+	error := conn.QueryRow(sqlStatement, id, token, expirationTime)
+	err = error.Err()
 	if err != nil {
-		return err.Err()
+		logrus.Infof(err.Error())
 	}
-	return nil
+	return err
 }
 
 func GetTime(token string) (uint64, string, error) {
-	conn := StartConnection()
-	defer conn.Close()
+	var err error = nil
+	conn, err := StartConnection()
+	if err != nil {
+		logrus.Infof(err.Error())
+		return 0, "", err
+	}
+
+	defer func() {
+		err = conn.Close()
+		if err != nil {
+			logrus.Infof(err.Error())
+		}
+	}()
 
 	sqlStatement := `SELECT id_entities, expiration_time FROM tokens WHERE token=$1;`
 	row := conn.QueryRow(sqlStatement, token)
 	var expirationTime string
 	var id uint64
-	err := row.Scan(&id, &expirationTime)
+	err = row.Scan(&id, &expirationTime)
 	switch err {
 	case sql.ErrNoRows:
 		return 0, "", err

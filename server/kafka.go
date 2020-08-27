@@ -90,15 +90,31 @@ func (k *Kafka) SendMessage(message interface{}, topic string) error {
 func messageReceived(message *sarama.ConsumerMessage, kafka *Kafka) error {
 	switch message.Topic {
 	case "ProductCreate":
-		HandleProductCreate(message, kafka)
+		err := HandleProductCreate(message, kafka)
+		if err != nil {
+			logrus.Infof(err.Error())
+			return err
+		}
 	case "ProductCreateReadDB":
-		HandleProductCreateReadDB(message, kafka)
+		err := HandleProductCreateReadDB(message, kafka)
+		if err != nil {
+			logrus.Infof(err.Error())
+			return err
+		}
 	case "ProductActivation":
-		HandleProductActivation(message, kafka)
+		err := HandleProductActivation(message, kafka)
+		if err != nil {
+			logrus.Infof(err.Error())
+			return err
+		}
 	case "ProductActivationReadDB":
-		HandleProductActivationReadDB(message, kafka)
+		err := HandleProductActivationReadDB(message, kafka)
+		if err != nil {
+			logrus.Infof(err.Error())
+			return err
+		}
 	default:
-		//log erro
+		logrus.Infof("Message not handled: " + message.Topic)
 	}
 	return nil
 }

@@ -16,25 +16,35 @@ type ProductRequest struct {
 }
 
 func CreateProduct(msg ProductRequest) error {
-	conn := StartConnection()
-	defer conn.Close()
+	var err error = nil
+	conn, err := StartConnection()
+	if err != nil {
+		logrus.Infof(err.Error())
+		return err
+	}
+	defer func() {
+		err = conn.Close()
+		if err != nil {
+			logrus.Infof(err.Error())
+		}
+	}()
 
 	sqlStatement := `
 		INSERT INTO product(id, description, customer_mid, customer_email, externalApp_id) 
 		VALUES ($1,$2,$3,$4, $5)`
-	err := conn.QueryRow(sqlStatement, msg.ID, msg.Description, msg.CustomerMid, msg.CustomerEmail, msg.ExternalAppID).Err()
+	err = conn.QueryRow(sqlStatement, msg.ID, msg.Description, msg.CustomerMid, msg.CustomerEmail, msg.ExternalAppID).Err()
 	if err != nil {
 		return err
 	}
-	return nil
+	return err
 }
 
-func ConvertProductMessage(msg []byte) ProductRequest {
+func ConvertProductMessage(msg []byte) (ProductRequest, error) {
 	result  :=  ProductRequest{}
 	err := json.Unmarshal(msg, &result)
 	if err != nil {
 		logrus.Error(err.Error())
 	}
-	return result
+	return result, err
 }
 

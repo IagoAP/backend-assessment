@@ -41,17 +41,9 @@ func StartConnection() (*sql.DB, error) {
 	if err != nil {
 		logrus.Infof(err.Error())
 	}
-	err = Conn.Ping()
-	if err != nil {
+	if err = Conn.Ping(); err != nil {
 		logrus.Infof(err.Error())
 	}
 
 	return Conn, err
-}
-
-func CloseConnetion(conn *sql.DB ) {
-	err := conn.Close()
-	if err != nil {
-		logrus.Infof(err.Error())
-	}
 }

@@ -2,6 +2,7 @@ package database2
 
 import (
 	"database/sql"
+	"github.com/sirupsen/logrus"
 	"strconv"
 )
 
@@ -27,16 +28,32 @@ type ReadModuleResult struct {
 }
 
 func GetAllRows () ([]ReadModuleResult, error) {
-	conn := StartConnection()
-	defer conn.Close()
+	var err error = nil
+	conn, err := StartConnection()
+	if err != nil {
+		logrus.Infof(err.Error())
+		return nil, err
+	}
+	defer func() {
+		err = conn.Close()
+		if err != nil {
+			logrus.Infof(err.Error())
+		}
+	}()
 
 	sqlStatement := `SELECT id_externalApp, id_product, id_superUser, description, customer_mid, customer_email, activated
 			FROM model;`
 	rows, err := conn.Query(sqlStatement)
 	if err != nil {
+		logrus.Infof(err.Error())
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() {
+		err = rows.Close()
+		if err != nil {
+			logrus.Infof(err.Error())
+		}
+	}()
 	var readModels []ReadModuleResult
 	for rows.Next() {
 		var readModelNullable = ReadModelNullable{}
@@ -45,11 +62,12 @@ func GetAllRows () ([]ReadModuleResult, error) {
 			&readModelNullable.CustomerMid, &readModelNullable.CustomerEmail,
 			&readModelNullable.Activated)
 		if err != nil {
+			logrus.Infof(err.Error())
 			return nil, err
 		}
 		readModels = append(readModels, validateValues(readModelNullable))
 	}
-	return readModels, nil
+	return readModels, err
 }
 
 

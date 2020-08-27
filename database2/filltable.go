@@ -16,38 +16,58 @@ type ReadModel struct {
 }
 
 func CreateRow(msg ReadModel) error {
-	conn := StartConnection()
-	defer conn.Close()
+	var err error = nil
+	conn, err := StartConnection()
+	if err != nil {
+		logrus.Infof(err.Error())
+		return err
+	}
+	defer func() {
+		err = conn.Close()
+		if err != nil {
+			logrus.Infof(err.Error())
+		}
+	}()
 
 	sqlStatement := `
 		INSERT INTO model (id_product, id_externalApp, description, customer_mid, customer_email) 
 		VALUES ($1,$2,$3,$4, $5)`
-	err := conn.QueryRow(sqlStatement, msg.IdProduct, msg.IdExternalApp, msg.Description, msg.CustomerMid, msg.CustomerEmail).Err()
+	err = conn.QueryRow(sqlStatement, msg.IdProduct, msg.IdExternalApp, msg.Description, msg.CustomerMid, msg.CustomerEmail).Err()
 	if err != nil {
-		return err
+		logrus.Infof(err.Error())
 	}
-	return nil
+	return err
 }
 
 func UpdateRow (msg ReadModel) error {
-	conn := StartConnection()
-	defer conn.Close()
+	var err error = nil
+	conn, err := StartConnection()
+	if err != nil {
+		logrus.Infof(err.Error())
+		return err
+	}
+	defer func() {
+		err = conn.Close()
+		if err != nil {
+			logrus.Infof(err.Error())
+		}
+	}()
 
 	sqlStatement := `UPDATE model
 		SET id_superUser = $2, activated = $3
 		WHERE id_product = $1;`
-	err := conn.QueryRow(sqlStatement, msg.IdProduct, msg.IdSuperUser, msg.Activated).Err()
+	err = conn.QueryRow(sqlStatement, msg.IdProduct, msg.IdSuperUser, msg.Activated).Err()
 	if err != nil {
-		return err
+		logrus.Infof(err.Error())
 	}
-	return nil
+	return err
 }
 
-func ConvertReadModel(msg []byte) ReadModel {
+func ConvertReadModel(msg []byte) (ReadModel, error) {
 	result  :=  ReadModel{}
 	err := json.Unmarshal(msg, &result)
 	if err != nil {
-		logrus.Fatal(err.Error())
+		logrus.Infof(err.Error())
 	}
-	return result
+	return result, err
 }
