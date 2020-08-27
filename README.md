@@ -84,8 +84,7 @@ Exemplo de resposta:
 
 ```javascript
 {
-  "Username": "User1",
-  "Password": "User1"
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOiIyMDIwLTA4LTI3VDA3OjIwOjMyLTAzOjAwIiwidXNlcl9pZCI6MX0.qmr31P3Oxs6Pl3ZGJ5mzDhWycJW8slvuSX0cWCLXUZI"
 }
 
 ```
@@ -115,8 +114,8 @@ Exemplo de resposta:
 
 ```javascript
 {
-  "Username": "User1",
-  "Password": "User1"
+  "ActivationID": "83d2fca5f4284d53a41f8b60ac36c491",
+  "message": "ok"
 }
 
 ```
@@ -144,8 +143,7 @@ Exemplo de resposta:
 
 ```javascript
 {
-  "Username": "User1",
-  "Password": "User1"
+  "message": "ok"
 }
 
 ```
@@ -173,8 +171,7 @@ Exemplo de resposta:
 
 ```javascript
 {
-  "Username": "User1",
-  "Password": "User1"
+  "message": "ok"
 }
 
 ```
@@ -192,9 +189,34 @@ haders:
 Exemplo de resposta:
 
 ```javascript
-{
-  "Username": "User1",
-  "Password": "User1"
-}
+[
+  {
+    "ExternalAppID": "1",
+    "ID": "c69415ce8e344f52976478048deb20bf",
+    "SuperUserID": "Produto nao avaliado.",
+    "Description": "Teste",
+    "CustomerMid": "2",
+    "CustomerEmail": "iagoaph@gmail.com",
+    "Activated": "Produto nao avaliado"
+  },
+  {
+    "ExternalAppID": "1",
+    "ID": "c69415ce8e344f52976478048deb20bf",
+    "SuperUserID": "Produto nao avaliado.",
+    "Description": "Teste",
+    "CustomerMid": "2",
+    "CustomerEmail": "iagoaph@gmail.com",
+    "Activated": "Produto nao avaliado"
+  },
+  {
+    "ExternalAppID": "1",
+    "ID": "c69415ce8e344f52976478048deb20bf",
+    "SuperUserID": "Produto nao avaliado.",
+    "Description": "Teste",
+    "CustomerMid": "2",
+    "CustomerEmail": "iagoaph@gmail.com",
+    "Activated": "Produto nao avaliado"
+  }
+]
 
 ```
