@@ -22,11 +22,38 @@ services:
     restart: always
   postgres-compose:
     image: postgres
+    volumes:
+      - ./resource/pst10.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=pst10
     ports:
       - '5432:5432'
+    networks:
+      service1_net:
+        ipv4_address: 172.22.0.100
+  postgres-compose-2:
+    image: postgres
     volumes:
-      - ./pgdata/:/var/lib/postgresql/data/
+      - ./resource/pst102.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=pst102
+    ports:
+      - '5433:5433'
+    networks:
+      service2_net:
+        ipv4_address: 172.23.0.100
+networks:
+  service1_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.22.0.0/16
+  service2_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.23.0.0/16

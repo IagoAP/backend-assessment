@@ -19,10 +19,10 @@ type PostgresInfo struct {
 func defineDB() string {
 	postgreConfig := PostgresInfo{
 		postgresPort:     environment.GetEnvVariables("DB_PORT"),
-		postgresHost:     environment.GetEnvVariables("DB_HOST"),
+		postgresHost:     environment.GetEnvVariables("DB_HOST2"),
 		postgresUser:     environment.GetEnvVariables("DB_USER"),
 		postgresPassword: environment.GetEnvVariables("DP_PASSWORD"),
-		postgresDBName:   environment.GetEnvVariables("DB2_NAME"),
+		postgresDBName:   environment.GetEnvVariables("DB_NAME2"),
 	}
 
 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
